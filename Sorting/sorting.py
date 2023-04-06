@@ -286,4 +286,88 @@ def  bucket_sort(alist):
 
 
 
+def __heapify(arr,n,i):
+    # find the largest among root and children
+    largest = i 
+    l = 2 * i + 1
+    r = 2 * i + 2
+
+    if l < n and arr[i] < arr[l]:
+        largest = l
+
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+
+    #  If root is not largest, swap with largest and continue heapifying
+    if largest != i:
+        arr[i], arr[largest] = arr[largest],arr[i] 
+
+        __heapify(arr,n,largest)
+def heap_sort(arr):
+    """
+    Heap Sort is a popular and efficient sorting algorithm in computer programming. 
+    Learning how to write the heap sort algorithm requires knowledge of 
+    two types of data structures - arrays and trees.
+    Time Complexity	:
+    Best	            = O(nlog n)
+    Worst	            = O(nlog n)
+    Average	            = O(nlog n)
+    Space Complexity	= O(1)
+    Stability	        = No
+    """
+    n = len(arr)
+    # Build max heap
+    for i in range(n//2,-1,-1):
+        __heapify(arr,n,i)
+
+    print("arr: ",arr)
+    for i in range(n - 1,0,-1):
+        # Swap
+        arr[i],arr[0] = arr[0],arr[i]
+        # Heapify root element
+        __heapify(arr,i,0)
+
+
+def shell_sort(alist):
+    """
+    Shell sort is a generalized version of the insertion sort algorithm. 
+    It first sorts elements that are far apart from each other and successively reduces the 
+    interval between the elements to be sorted.
+
+    The interval between the elements is reduced based on the sequence used. 
+    Some of the optimal sequences that can be used in the shell sort algorithm are:
+
+    Shell's original sequence: N/2 , N/4 , …, 1
+    Knuth's increments: 1, 4, 13, …, (3k – 1) / 2
+    Sedgewick's increments: 1, 8, 23, 77, 281, 1073, 4193, 16577...4j+1+ 3·2j+ 1
+    Hibbard's increments: 1, 3, 7, 15, 31, 63, 127, 255, 511…
+    Papernov & Stasevich increment: 1, 3, 5, 9, 17, 33, 65,...
+    Pratt: 1, 2, 3, 4, 6, 9, 8, 12, 18, 27, 16, 24, 36, 54, 81....
+    Time Complexity	:
+    Best	            = O(nlog n)
+    Worst	            = O(n2)
+    Average	            = O(nlog n)
+    Space Complexity	= O(1)
+    Stability	        = No
+    """
+    n = len(alist)
+    interval = n // 2
+
+    while interval > 0:
+        for i in range(interval,n):
+            temp = alist[i]
+            j = i
+            while j >= interval and alist[j - interval] > temp:
+                alist[j] = alist[j - interval]
+                j -= interval
+            alist[j] = temp
+        interval //=2
+
+
+    
+
+
+
+
+
 
