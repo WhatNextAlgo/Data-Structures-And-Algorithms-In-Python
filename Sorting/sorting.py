@@ -233,6 +233,16 @@ def __counting_sort(alist,place):
         
 
 def radix_sort(alist):
+    """
+    Radix sort is a sorting algorithm that sorts the elements by first grouping the individual digits 
+    of the same place value. Then, sort the elements according to their increasing/decreasing order.
+    Time Complexity	:
+    Best	            = O(n + k)
+    Worst	            = O(n + k)
+    Average	            = O(n + k)
+    Space Complexity	= O(max)
+    Stability	        = Yes
+    """
     #get maximun element
     max_elem = max(alist)
     # Apply counting sort to sort elements based on place value.
