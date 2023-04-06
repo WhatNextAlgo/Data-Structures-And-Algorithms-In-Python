@@ -27,7 +27,7 @@ def binary_search_iterative(alist,elem,low,high):
     The space complexity of the binary search is O(1).
     """
 
-    while low < high:
+    while low <= high:
         mid = low + (high - low)// 2
         if alist[mid] == elem:
             return mid
