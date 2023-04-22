@@ -8,14 +8,15 @@ class Node:
         # every node has 26 children no matter they are needed or not
         self.children = [None for _ in range(ALPHABET_SIZE)] 
         self.leaf = False
-
+        # like a dictionary: key (char) - value (integer) pairs
+        self.value = None
 
 class Trie:
     def __init__(self):
         # the root node is empty node (here we use *)
         self.root = Node("*")
 
-    def insert(self,word):
+    def insert(self,word,value):
         # always start with root node
         current = self.root
         for char in word:
@@ -33,6 +34,7 @@ class Trie:
         # after we considered all the letters of the word
         # then we set the leaf node to True. it means end of the word   
         current.leaf = True
+        current.value = value
 
 
     def find(self,word):
@@ -55,6 +57,27 @@ class Trie:
             return True
         
         return False
+    
+    def get(self,key):
+        # if the tree is empty then return False
+        if not self.root.children:
+            return False
+        
+        current = self.root
+        # considered all the letters
+        for char in key:
+            ascii_index = ord(char) - ord('a')
+            if current.children[ascii_index] is not None:
+                current = current.children[ascii_index]
+            else:
+                # otherwise we know the word is not present
+                return None
+        #if we've considered all the letters and the actual node is a leaf node:
+        # we found the word
+        if current.leaf:
+            return current.value
+        
+        return None
     
     def sort(self):
         return self.get_words_prefix("")
@@ -98,12 +121,12 @@ class Trie:
 
 if __name__ == "__main__":
     trie = Trie()
-    trie.insert("sea")
-    trie.insert("seashell")
-    trie.insert("shell")
-    trie.insert("computer")
-    trie.insert("science")
-    trie.insert("apple")
+    trie.insert("sea",10)
+    trie.insert("seashell",11)
+    trie.insert("shell",12)
+    trie.insert("computer",13)
+    trie.insert("science",20)
+    trie.insert("apple",30)
     print(trie.find("sea"))
     print(trie.find("car"))
     print(trie.find("science"))
@@ -112,3 +135,6 @@ if __name__ == "__main__":
     print(trie.get_words_prefix("s"))
     print(trie.sort())
 
+    print(trie.get("apple"))
+    print(trie.get("banana"))
+    print(trie.get("computer"))
